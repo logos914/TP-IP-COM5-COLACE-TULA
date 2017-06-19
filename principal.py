@@ -70,6 +70,7 @@ def main():
                         cargarListas(posX, posY, letrasEnPantalla, ocupados, palabra, ayuda, listaPalabra, listaAyuda)
                         candidata=""
                         t0=t1 #Reiniciar el primer timer para volver a comparar con el segundo
+
                     else:
                         if(esCorrecta(candidata, palabra)): #acerto
                                     palabra=cambiarPalabra(listaPalabra)
@@ -78,6 +79,7 @@ def main():
                                     candidata=""
                                     puntos += puntuar(palabra)
                                     t0=t1
+
         screen.fill(COLOR_FONDO)
 
         segundos = TIEMPO_MAX - pygame.time.get_ticks()/1000

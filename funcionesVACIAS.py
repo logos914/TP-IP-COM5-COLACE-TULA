@@ -9,6 +9,7 @@ def lectura(listaNombres,listaAyuda):#Cargar las dos listas desde los archivos
     for linea in lineasPalabras:
         linea = linea.replace("\n","")
         listaNombres.append(linea)
+    archivoPalabras.close()
 
 
     archivoAyuda = open("sinonimos.txt","r")
@@ -16,15 +17,21 @@ def lectura(listaNombres,listaAyuda):#Cargar las dos listas desde los archivos
     for linea in lineasAyuda:
         linea = linea.replace("\n","")
         listaAyuda.append(linea)
+    archivoAyuda.close()
 
 def cargarListas(posX, posY, letrasEnPantalla, ocupados, palabra, ayuda, listaNombres, listaAyuda): #Vaciar posX, posY, letrasenpantalla y ocupados, luego llamar cargarLetras y cargarPosiciones
-    posX = []
-    posY = []
-    letrasEnPantalla = []
-    ocupados = []
+
+    for i in range(len(posX)):
+        posX.pop()
+    for i in range(len(posY)):
+        posY.pop()
+    for i in range(len(letrasEnPantalla)):
+        letrasEnPantalla.pop()
+    for i in range(len(ocupados)):
+        ocupados.pop()
     cargarLetras(palabra,letrasEnPantalla)
     cargarPosiciones(letrasEnPantalla,posX,posY,ocupados)
-    pass
+
 
 def cargarLetras(palabra, letrasEnPantalla):#Recorrer  palabra y apendear a letrasEnPantalla
    for letra in palabra:
@@ -32,18 +39,23 @@ def cargarLetras(palabra, letrasEnPantalla):#Recorrer  palabra y apendear a letr
 
 
 def cambiarPalabra(listaPalabra):#Devolver palabra elegida al azar
-    return listaPalabra[random.randrange(len(listaPalabra))]
+    return listaPalabra[random.randint(0,len(listaPalabra))]
     pass
 
 def cargarPosiciones(letras, posX, posY, ocupados):#Cargar listas posX y posY en ubicaciones aleatorias
     for i in letras:
-        posX.append(random.randrange(800))
-        posY.append(random.randrange(600))
+        posibleX = random.randrange(50,750)
+     #   while (estaCerca(posibleX,ocupados)):
+     #       posibleX = random.randrange(50,750)
+     #       print("No encuentro uno lejos")
+        posX.append(posibleX)
+     #   ocupados.append(posibleX)
+        posY.append(random.randrange(50,500))
     pass
 
 def cargarAyuda(listaAyuda, listaPalabra, palabra):#Retornar sinonimo
     return listaAyuda[damePosicion(listaPalabra,palabra)]
-    pass
+
 
 def damePosicion(listaPalabra, palabra):#Devuelver la posicion de la palabra en listaPalabra
     for i in range(0,len(listaPalabra)):
@@ -53,6 +65,24 @@ def damePosicion(listaPalabra, palabra):#Devuelver la posicion de la palabra en 
 
 def estaCerca(elem, lista):#Control de superposicion
     pass
+    for i in lista:
+        if (i > elem):
+            if (i - elem) <= 3:
+                return True
+        else:
+            if (i < elem):
+                if (elem - i) <= 3:
+                    return True
+
+            else:
+                if (i == elem):
+                    return True
+    return False
+
+
+
+
+
 
 def esCorrecta(candidata, palabra):#comprobar palabra ingresada por teclado
     if candidata == palabra:
@@ -61,7 +91,17 @@ def esCorrecta(candidata, palabra):#comprobar palabra ingresada por teclado
         return False
 
 
-def puntuar(pal): #puntuacion
-    pass
+def puntuar(palabra): #puntuacion
+
+    puntos=0
+    for i in range(len(palabra)):
+        if i == "a" or i == "e" or i == "i" or i == "o" or i == "u":
+            puntos += 1
+        else:
+            if i == "j" or i == "k" or i == "q" or i == "w" or i == "x" or i == "y" or i == "z":
+                puntos += 5
+            else:
+                puntos +=2
+    return puntos
 
 
