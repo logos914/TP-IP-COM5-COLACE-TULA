@@ -39,17 +39,17 @@ def cargarLetras(palabra, letrasEnPantalla):#Recorrer  palabra y apendear a letr
 
 
 def cambiarPalabra(listaPalabra):#Devolver palabra elegida al azar
-    return listaPalabra[random.randint(0,len(listaPalabra))]
+    return listaPalabra[random.randint(0,len(listaPalabra)-1)]
     pass
 
 def cargarPosiciones(letras, posX, posY, ocupados):#Cargar listas posX y posY en ubicaciones aleatorias
     for i in letras:
         posibleX = random.randrange(50,750)
-     #   while (estaCerca(posibleX,ocupados)):
-     #       posibleX = random.randrange(50,750)
-     #       print("No encuentro uno lejos")
+        while (estaCerca(posibleX,ocupados)):
+            posibleX = random.randrange(50,750)
+
         posX.append(posibleX)
-     #   ocupados.append(posibleX)
+        ocupados.append(posibleX)
         posY.append(random.randrange(50,500))
     pass
 
