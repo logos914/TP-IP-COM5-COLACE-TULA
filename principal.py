@@ -35,13 +35,12 @@ def main():
     posY=[]
     ayuda=""
     ocupados=[]
-    posicionesOcupadas = []
 
     #Cargar datos en listaPalabra y listaAyudas desde los dos archivos
     lectura(listaPalabra, listaAyuda)
 
 
-    cargaInicial=random.randint(0,len(listaPalabra)-1) # ACA NO DEBERIA SER MENOS 1 ??? PORQUE SINO TE PODES PASAR DEL INDEX DE LISTAPALABRA
+    cargaInicial=random.randint(0,len(listaPalabra))
 
     cargarPosiciones(listaPalabra[cargaInicial], posX, posY, ocupados) #Posiciones aleatorias dentro de los margenes establecidos
     palabra=listaPalabra[cargaInicial] #Primera palabra por default
@@ -66,7 +65,7 @@ def main():
                     candidata = candidata[0:len(candidata)-1]
                 if e.key == K_RETURN :
                     if candidata=='1': #Siguiente palabra
-                        palabra=cambiarPalabra(listaPalabra,posicionesOcupadas)
+                        palabra=cambiarPalabra(listaPalabra)
                         ayuda=cargarAyuda(listaAyuda, listaPalabra, palabra)
                         cargarListas(posX, posY, letrasEnPantalla, ocupados, palabra, ayuda, listaPalabra, listaAyuda)
                         candidata=""
@@ -74,7 +73,7 @@ def main():
 
                     else:
                         if(esCorrecta(candidata, palabra)): #acerto
-                                    palabra=cambiarPalabra(listaPalabra,posicionesOcupadas)
+                                    palabra=cambiarPalabra(listaPalabra)
                                     ayuda=cargarAyuda(listaAyuda,listaPalabra,palabra)
                                     cargarListas(posX, posY, letrasEnPantalla, ocupados, palabra, ayuda, listaPalabra, listaAyuda)
                                     candidata=""
@@ -88,7 +87,7 @@ def main():
         dibujar(letrasEnPantalla, posX, posY, candidata, palabra, ayuda, segundos, t0, t1, screen, puntos)
 
         if(t1-t0>=16): #Cambiar la palabra
-                palabra=cambiarPalabra(listaPalabra,posicionesOcupadas)
+                palabra=cambiarPalabra(listaPalabra)
                 ayuda=cargarAyuda(listaAyuda,listaPalabra,palabra)
                 cargarListas(posX, posY, letrasEnPantalla, ocupados, palabra, ayuda, listaPalabra, listaAyuda)
                 candidata=""

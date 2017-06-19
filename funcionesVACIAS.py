@@ -38,31 +38,16 @@ def cargarLetras(palabra, letrasEnPantalla):#Recorrer  palabra y apendear a letr
        letrasEnPantalla.append(letra)
 
 
-def fueUsadaLaPalabra(pos,posicionesOcupadas):
-    for i in range(0,len(posicionesOcupadas)):
-        if posicionesOcupadas[i] == pos:
-            return True
-    return False
-
-def cambiarPalabra(listaPalabra,posicionesOcupadas):#Devolver palabra elegida al azar
-    contador = 0
-    candidatoOcupar = random.randint(0,len(listaPalabra)-1)
-    while (fueUsadaLaPalabra(candidatoOcupar,posicionesOcupadas) and contador < len(listaPalabra)):
-        candidatoOcupar = random.randint(0,len(listaPalabra)-1)
-        contador = contador + 1
-    if (contador >= len(listaPalabra)):
-        print("Te fuiste a la mierda, no hay más palabras")
-        pygame.quit()
-    posicionesOcupadas.append(candidatoOcupar)
-    return listaPalabra[candidatoOcupar]
-
+def cambiarPalabra(listaPalabra):#Devolver palabra elegida al azar
+    return listaPalabra[random.randint(0,len(listaPalabra)-1)]
+    pass
 
 def cargarPosiciones(letras, posX, posY, ocupados):#Cargar listas posX y posY en ubicaciones aleatorias
     for i in letras:
         posibleX = random.randrange(50,750)
         while (estaCerca(posibleX,ocupados)):
             posibleX = random.randrange(50,750)
-            print("No encuentro uno lejos")
+
         posX.append(posibleX)
         ocupados.append(posibleX)
         posY.append(random.randrange(50,500))
@@ -79,7 +64,7 @@ def damePosicion(listaPalabra, palabra):#Devuelver la posicion de la palabra en 
 
 
 def estaCerca(elem, lista):#Control de superposicion
-
+    pass
     for i in lista:
         if (i > elem):
             if (i - elem) <= 3:
