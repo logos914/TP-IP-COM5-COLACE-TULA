@@ -103,5 +103,3 @@ def puntuar(palabra): #puntuacion
             else:
                 puntos +=2
     return puntos
-
-
