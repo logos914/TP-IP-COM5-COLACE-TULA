@@ -62,6 +62,10 @@ def dameLetraApretada(key):
     else:
         return("")
 
+
+
+
+
 def dibujar(letrasEnPantalla, posX, posY, candidata, palabra, ayuda, segundos, t0, t1, screen, puntos):
     font = pygame.font.Font(None, 30)
     for i in range(len(letrasEnPantalla)):
