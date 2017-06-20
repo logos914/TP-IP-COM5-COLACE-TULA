@@ -3,7 +3,8 @@ from collections import namedtuple
 TAMANNO_LETRA = 20
 TAMANNO_LETRA_GRANDE = 40
 FPS_inicial = 3
-TIEMPO_MAX = 92
+TIEMPO_MAX = 7
+TIEMPO_RANKING = 48
 
 ANCHO = 800
 ALTO = 600
