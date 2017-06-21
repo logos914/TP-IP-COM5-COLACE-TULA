@@ -51,8 +51,9 @@ def main():
     tecla = pygame.mixer.Sound("sou.ogg")       # Efecto de sonido para cuando se presiona una tecla
     pasar = pygame.mixer.Sound("pasar.ogg")     # Efecto de sonido cuando se hace pasapalabra
     corre = pygame.mixer.Sound("correcta.ogg")  # Efecto de sonido cuando se aciera a la palabra
-
-
+    ganaste = pygame.mixer.Sound("win.ogg")     # Efecto de sonido cuando se gana en el ranking
+    pasar.set_volume(0.5)
+    tecla.set_volume(0.2)
 
 
 
@@ -137,10 +138,11 @@ def main():
 
 
 
+
     screen.fill(COLOR_FONDO)                # Limpiar pantalla
     pygame.display.flip()                   # Actualizar pantalla
     song.set_volume(0)                      # Que la música no se escuche más
-    segundos = 30                      # Dar muchos segundos para que sea siempre mayor al tiempo transcurrido hasta que termina de jugar
+    segundos = 3600                      # Dar muchos segundos para que sea siempre mayor al tiempo transcurrido hasta que termina de jugar
                                         #y no haya problema en ver ranking y escribir nombre
 
 
@@ -151,7 +153,9 @@ def main():
 
     if (resultado is not False): #Si merece estar en el ranking
 
-
+        pygame.time.wait(1000)       # para que no se repitan letras si el usuario tarda menos de 100 milisegundos en levantar el dedo de la tecla
+        ganaste.set_volume(0.5)
+        ganaste.play()
         while segundos > fps/1000:          #Nuevo bucle para ver ranking y escribir nombre
 
 
@@ -176,7 +180,7 @@ def main():
                 letra = dameLetraApretada(e.key)
                 print (letra)
                 nombreuser += letra
-                pygame.time.wait(100)       # para que no se repitan letras si el usuario tarda menos de 100 milisegundos en levantar el dedo de la tecla
+                pygame.time.wait(135)       # para que no se repitan letras si el usuario tarda menos de 100 milisegundos en levantar el dedo de la tecla
                 if e.key == K_BACKSPACE:
                     nombreuser = nombreuser[0:len(nombreuser)-1]    # Borra el último caracter si escribió backspace
                 if e.key == K_RETURN :
