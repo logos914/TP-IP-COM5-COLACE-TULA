@@ -86,7 +86,8 @@ def main():
             if e.type == KEYDOWN:
                 tecla.play()
                 letra = dameLetraApretada(e.key)
-                candidata += letra
+                if len(candidata) < len(palabra):
+                    candidata += letra
                 if e.key == K_BACKSPACE:
                     candidata = candidata[0:len(candidata)-1]   # Al presionar la tecla retroceso (backspace) elimina el último elemento de la lista o string candidata
                 if e.key == K_RETURN :
@@ -97,7 +98,7 @@ def main():
                         cargarListas(posX, posY, letrasEnPantalla, ocupados, palabra, ayuda, listaPalabra, listaAyuda)
                         candidata=""
                         t0=t1 #Reiniciar el primer timer para volver a comparar con el segundo
-                        if segundos > 5:                                    # Si todavía quedan más de 5 segundos, aplicar penalidad
+                        if segundos > 10:                                    # Si todavía quedan más de 5 segundos, aplicar penalidad
                             penalidades = cambiarTiempo(penalidades,True)   # Si quedan menos de 5 segundos no se aplica para que no haya inconveniente
                                                                             # en ejectar el bucle donde se muestra el ranking. De paso el usuario puede
                                                                             # aproecharse y pasar palabras las veces que pueda en 5 segundos.
@@ -127,7 +128,8 @@ def main():
                 candidata=""
                 t0=t1
                 dibujar(letrasEnPantalla, posX, posY, candidata, palabra, ayuda, segundos, t0, t1, screen, puntos) #Segundo llamado
-                penalidades = cambiarTiempo(penalidades,True)               # Si pasó el tiempo y no acertó aplica penalidad
+                if segundos > 5:
+                    penalidades = cambiarTiempo(penalidades,True)               # Si pasó el tiempo y no acertó aplica penalidad
         pygame.display.flip()
 
 
@@ -138,8 +140,9 @@ def main():
     screen.fill(COLOR_FONDO)                # Limpiar pantalla
     pygame.display.flip()                   # Actualizar pantalla
     song.set_volume(0)                      # Que la música no se escuche más
-    segundos = 9999999                      # Dar muchos segundos para que sea siempre mayor al tiempo transcurrido hasta que termina de jugar
-                                            #y no haya problema en ver ranking y escribir nombre
+    segundos = 30                      # Dar muchos segundos para que sea siempre mayor al tiempo transcurrido hasta que termina de jugar
+                                        #y no haya problema en ver ranking y escribir nombre
+
 
     # Resultado es la posicion que ocupa en el ranking, o es False si no entra al ranking
     resultado = entraEnRanking(puntos,listaRankingNombre,listaRankingPuntos)
