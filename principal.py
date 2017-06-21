@@ -142,7 +142,7 @@ def main():
     screen.fill(COLOR_FONDO)                # Limpiar pantalla
     pygame.display.flip()                   # Actualizar pantalla
     song.set_volume(0)                      # Que la música no se escuche más
-    segundos = 3600                      # Dar muchos segundos para que sea siempre mayor al tiempo transcurrido hasta que termina de jugar
+    segundos = 99999                      # Dar muchos segundos para que sea siempre mayor al tiempo transcurrido hasta que termina de jugar
                                         #y no haya problema en ver ranking y escribir nombre
 
 
@@ -156,7 +156,9 @@ def main():
         pygame.time.wait(1000)       # para que no se repitan letras si el usuario tarda menos de 100 milisegundos en levantar el dedo de la tecla
         ganaste.set_volume(0.5)
         ganaste.play()
-        while segundos > fps/1000:          #Nuevo bucle para ver ranking y escribir nombre
+        enterPresionado = False
+
+        while enterPresionado == False:          #Nuevo bucle para ver ranking y escribir nombre
 
 
 
@@ -185,10 +187,11 @@ def main():
                     nombreuser = nombreuser[0:len(nombreuser)-1]    # Borra el último caracter si escribió backspace
                 if e.key == K_RETURN :
                     escribirNuevoRanking(resultado,nombreuser,puntos,listaRankingNombre,listaRankingPuntos) # Al darle enter, ingresar los datos definitivamente al ranking
-                    pygame.quit()                                                                           # Salir del programa
-                    return
+                    enterPresionado = True
+                                                                                              # Salir del programa
 
-            screen.blit(font.render("Ingresa tu nombre", 1, COLOR_LETRAS), (50,500))    # Cartel que le dice al usuario que puede ingresar su nombre
+
+            screen.blit(font.render("Ingresa tu nombre y presiona enter", 1, COLOR_LETRAS), (50,500))    # Cartel que le dice al usuario que puede ingresar su nombre
 
 
             # Funcion que muestra el ranking y en vivo la posicion que ocupa el usuario y cambia su nombre conforme lo tipea
@@ -209,11 +212,11 @@ def main():
                 # en t0 o t1 ya no tiene importancia la distancia entre el momento actual y el momento de la aparición de la palabra. se le pasa el valor de segundos
                 # screen es el puntero que maneja la pantalla, hay que pasarlo
                 # se quieren mostrar los puntos actuales, asi que tambien se pasan los puntos
-            dibujar(nada, nada, nada, nombreuser, "", "Ingresa tu nombre", segundos, segundos, segundos, screen, puntos) #Segundo llamado
+            dibujar(nada, nada, nada, nombreuser, "", "Ingresa tu nombre", 0, 0, 0, screen, puntos) #Segundo llamado
 
 
             # Esta es la formular de segundos restantes para esta parte del programa
-            segundos = TIEMPO_RANKING - pygame.time.get_ticks()/1000
+            # segundos = TIEMPO_RANKING - pygame.time.get_ticks()/1000
 
             # Actualizar pantalla
             pygame.display.flip()
