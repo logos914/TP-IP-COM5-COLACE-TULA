@@ -10,9 +10,9 @@ Buenos Aires
 Ereván
 Canberra
 Viena
-Bakú	Asia
-Nasáu	América
-Daca	Asia
+Bakú
+Nasáu
+Daca
 Bridgetown
 Manama
 Bruselas

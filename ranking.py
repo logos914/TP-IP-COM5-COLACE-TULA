@@ -5,14 +5,14 @@ from configuracion import *
 def leerRanking(listaRankingNombre,listaRankingPuntos):
     archivoRankingNombre = open("ranking_nombre.txt","r")
     lineasRankingNombre = archivoRankingNombre.readlines()
-    for linea in lineasRankingNombre[0:9]:
+    for linea in lineasRankingNombre:
         linea = linea.replace("\n","")
         listaRankingNombre.append(linea)
     archivoRankingNombre.close()
 
     archivoRankingPuntos = open("ranking_puntos.txt","r")
     lineasRankingPuntos = archivoRankingPuntos.readlines()
-    for linea in lineasRankingPuntos[0:9]:
+    for linea in lineasRankingPuntos:
         linea = int(linea.replace("\n",""))
         listaRankingPuntos.append(linea)
     archivoRankingPuntos.close()

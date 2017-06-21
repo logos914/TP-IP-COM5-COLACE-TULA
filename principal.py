@@ -43,7 +43,7 @@ def main():
     listaRankingPuntos=[]       # Lista que guarda los puntajes del top 10
     nada = []                   # Una lista vacia para utilizar de forma auxiliar
     penalidades = 0             # Variable que incorpora el tiempo de penalidad o premio por acertar o no
-
+    enterPresionado = False     # Variable utilizada en el ranking para conocer si el usuario finalizó la entrada de datos o de ver el listado
 
     song= pygame.mixer.Sound("song.ogg")        # Musica del juego, carga el archivo
     song.set_volume(0.2)                        # Establecer el volumen como una cortina de fondo, bajito
@@ -52,8 +52,8 @@ def main():
     pasar = pygame.mixer.Sound("pasar.ogg")     # Efecto de sonido cuando se hace pasapalabra
     corre = pygame.mixer.Sound("correcta.ogg")  # Efecto de sonido cuando se aciera a la palabra
     ganaste = pygame.mixer.Sound("win.ogg")     # Efecto de sonido cuando se gana en el ranking
-    pasar.set_volume(0.5)
-    tecla.set_volume(0.2)
+    pasar.set_volume(0.5)                       # Correción de volumen
+    tecla.set_volume(0.2)                       # Correción de volumen
 
 
 
@@ -142,8 +142,7 @@ def main():
     screen.fill(COLOR_FONDO)                # Limpiar pantalla
     pygame.display.flip()                   # Actualizar pantalla
     song.set_volume(0)                      # Que la música no se escuche más
-    segundos = 99999                      # Dar muchos segundos para que sea siempre mayor al tiempo transcurrido hasta que termina de jugar
-                                        #y no haya problema en ver ranking y escribir nombre
+
 
 
     # Resultado es la posicion que ocupa en el ranking, o es False si no entra al ranking
@@ -156,7 +155,7 @@ def main():
         pygame.time.wait(1000)       # para que no se repitan letras si el usuario tarda menos de 100 milisegundos en levantar el dedo de la tecla
         ganaste.set_volume(0.5)
         ganaste.play()
-        enterPresionado = False
+
 
         while enterPresionado == False:          #Nuevo bucle para ver ranking y escribir nombre
 
@@ -207,23 +206,24 @@ def main():
                 # nada para posiciones con PosX y posY
                 # ahora la candidata es el nombre del usuario
                 # no hay palabra que adivinar asi que "" (nada)
-                # En la ayuda puede mostrar un cartel que diga "Ingresa tu nombre"
-                # en segundos que muestren los segundos que quedan para que complete su nombre
+                # En la ayuda puede mostrar un cartel que diga "Ingresa tu nombre y presiona enter"
+                # ̶e̶n̶ ̶s̶e̶g̶u̶n̶d̶o̶s̶ ̶q̶u̶e̶ ̶m̶u̶e̶s̶t̶r̶e̶n̶ ̶l̶o̶s̶ ̶s̶e̶g̶u̶n̶d̶o̶s̶ ̶q̶u̶e̶ ̶q̶u̶e̶d̶a̶n̶ ̶p̶a̶r̶a̶ ̶q̶u̶e̶
+                # c̶o̶m̶p̶l̶e̶t̶e̶ ̶s̶u̶ ̶n̶o̶m̶b̶r̶e̶
+                # ya no usamos los segundos como límite. Esperamos que se presione enter
                 # en t0 o t1 ya no tiene importancia la distancia entre el momento actual y el momento de la aparición de la palabra. se le pasa el valor de segundos
                 # screen es el puntero que maneja la pantalla, hay que pasarlo
                 # se quieren mostrar los puntos actuales, asi que tambien se pasan los puntos
-            dibujar(nada, nada, nada, nombreuser, "", "Ingresa tu nombre", 0, 0, 0, screen, puntos) #Segundo llamado
+            dibujar(nada, nada, nada, nombreuser, "", "Ingresa tu nombre y enter", 0, 0, 0, screen, puntos) #Segundo llamado
 
 
-            # Esta es la formular de segundos restantes para esta parte del programa
-            # segundos = TIEMPO_RANKING - pygame.time.get_ticks()/1000
+
 
             # Actualizar pantalla
             pygame.display.flip()
 
 
     else:       #Si NO merece estar en el ranking
-        while segundos > fps/1000:          #Nuevo bucle para ver ranking y escribir nombre
+        while enterPresionado == False:          #Nuevo bucle para ver ranking y escribir nombre
 
 
 
@@ -237,7 +237,12 @@ def main():
                     pygame.quit()
                     return
 
-            # no hace falta esperar que el usuario tipee nada aquí
+            if e.type == KEYDOWN:           # Se espera enter para salir
+                if e.key == K_RETURN :
+                    pygame.quit()
+                    return
+
+
 
 
 
@@ -254,16 +259,16 @@ def main():
                 # ahora la candidata es el nombre del usuario PERO NO PUEDE ESCRIBIRLO PORQUE NO ENTRO AL RANKING
                 # no hay palabra que adivinar asi que "" (nada)
                 # En la ayuda puede mostrar un cartel que diga "Más suerte para la próxima"
-                # en segundos que muestren los segundos que quedan hasta que se cierre el programa
+                # ̶e̶n̶ ̶s̶e̶g̶u̶n̶d̶o̶s̶ ̶q̶u̶e̶ ̶m̶u̶e̶s̶t̶r̶e̶n̶ ̶l̶o̶s̶ ̶s̶e̶g̶u̶n̶d̶o̶s̶ ̶q̶u̶e̶ ̶q̶u̶e̶d̶a̶n̶ ̶p̶a̶r̶a̶ ̶q̶u̶e̶
+                # c̶o̶m̶p̶l̶e̶t̶e̶ ̶s̶u̶ ̶n̶o̶m̶b̶r̶e̶
+                # ya no usamos los segundos como límite. Esperamos que se presione enter
                 # en t0 o t1 ya no tiene importancia la distancia entre el momento actual y el momento de la aparición de la palabra. se le pasa el valor de segundos
                 # screen es el puntero que maneja la pantalla, hay que pasarlo
                 # se quieren mostrar los puntos actuales, asi que tambien se pasan los puntos
-            dibujar(nada, nada, nada, nombreuser, "", "Más suerte para la próxima", segundos, segundos, segundos, screen, puntos) #Segundo llamado
+            dibujar(nada, nada, nada, nombreuser, "", "Más suerte para la próxima", 0, 0, 0, screen, puntos) #Segundo llamado
 
 
 
-            # Esta es la formular de segundos restantes para esta parte del programa
-            segundos = TIEMPO_RANKING - pygame.time.get_ticks()/1000
 
             # Actualizar pantalla
             pygame.display.flip()
@@ -277,7 +282,10 @@ def main():
                 pygame.quit()
                 return
 
-
+        if e.type == KEYDOWN:                  # Se espera enter para salir
+            if e.key == K_RETURN :
+                pygame.quit()
+                return
 
 if __name__ == '__main__':
     main()

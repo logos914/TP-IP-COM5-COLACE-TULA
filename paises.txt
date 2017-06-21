@@ -13,7 +13,7 @@ austria
 azerbaiyan
 bahamas
 banglades
-barbados
+hbarbados
 barein
 belgica
 belice
@@ -21,7 +21,7 @@ benin
 bielorrusia
 birmania
 bolivia
-bosnia-herzegovina
+bosnia herzegovina
 botsuana
 brasil
 brunei
@@ -33,7 +33,7 @@ cabo verde
 camboya
 camerun
 canada
-catar
+qatar
 chad
 chile
 china
@@ -73,7 +73,7 @@ grecia
 guatemala
 guinea
 guinea ecuatorial
-guinea-bisau
+guinea bisau
 guyana
 haiti
 honduras
